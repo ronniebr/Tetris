@@ -12,6 +12,7 @@ import org.jdesktop.application.SingleFrameApplication;
  */
 public class OhtyoApp extends SingleFrameApplication {
     String lol = "lol";
+    String trol = "lololol";
 
     /**
      * At startup create and show the main frame of the application.
