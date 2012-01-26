@@ -25,7 +25,7 @@ public class Ruudukko {
         
     }
     public void uusiPalikkaRuudukkoon(Palikka palikka){
-        int[][] palikanTyyppi = palikka.haePalikanMatriisi();
+        int[][] palikanTyyppi = palikka.haePalikanTyyppi();
         int apumuuttuja = 5; //koska palikka syntyy keskelle ruudukkoa
         for (int rivi = 0;rivi < palikanTyyppi.length; ++rivi) {
             for (int sarake = 0; sarake < palikanTyyppi[korkeus].length; ++sarake) {
