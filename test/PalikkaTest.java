@@ -3,6 +3,14 @@
  * and open the template in the editor.
  */
 
+/**
+ *
+ * @author ronniebr
+ */
+import ohtyo.Ruudukko;
+import ohtyo.Palikka;
+import ohtyo.PalikanPala;
+        
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -10,13 +18,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author ronniebr
- */
-public class ohtyoTest {
-
-    public ohtyoTest() {
+public class PalikkaTest {
+    public PalikkaTest() {
     }
 
     @BeforeClass
@@ -38,7 +41,16 @@ public class ohtyoTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    // @Test
-    // public void hello() {}
+  @Test
+  public void palikkaRuudukkoon() {
+      Ruudukko ruudukko = new Ruudukko();
+      ruudukko.uusiPalikka();
+ 
+      
+      assertTrue("", ruudukko.kahvaAktiiviseenPalikkaan().siirra('a', ruudukko));
+      
+  }
 
 }
+    
+

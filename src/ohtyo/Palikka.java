@@ -14,55 +14,83 @@ public class Palikka {
      *
      */
 
-    private int[][] palikanTyyppi;
-    private int[] palikanKoordinaatit = new int[] {21,5};
-    private PalikanPala pala1,pala2,pala3,pala4;
 
+    private PalikanPala[] tetrisPalikka = new PalikanPala[4];
+
+    /**
+     * Konstruktori luo tietyn tyyppisen tetrispalikan. Tetrispalikka koostuu
+     * neljästä palasta. Palojen koordinaatit riippuvat palikan tyypistä.
+     *
+     * @param tyyppi Haluttu tetrispalikan tyyppi, esim I;Z;L;J;O
+     */
     public Palikka(int tyyppi) { //tässä vaiheessa kokeilussa **** muotoinen palikka
-        if (tyyppi == 1) {
-            pala1 = new PalikanPala(5,21);
-            pala2 = new PalikanPala(5,22);
-            pala3 = new PalikanPala(5,23);
-            pala4 = new PalikanPala (5,24);
+        if (tyyppi == 1) {//I
+
+
+            tetrisPalikka[0] = new PalikanPala(5, 21);
+            tetrisPalikka[1] = new PalikanPala(5, 22);
+            tetrisPalikka[2] = new PalikanPala(5, 23);
+            tetrisPalikka[3] = new PalikanPala(5, 24);
+        }
+        else if (tyyppi == 2){//J
+            tetrisPalikka[0] = new PalikanPala(5, 21);
+            tetrisPalikka[1] = new PalikanPala(6, 21);
+            tetrisPalikka[2] = new PalikanPala(6, 22);
+            tetrisPalikka[3] = new PalikanPala(6, 23);
             
         }
-        /* if (tyyppi == 1) 
-        palikanTyyppi = new int[1][4];
-        for (int korkeus = 0; korkeus < palikanTyyppi.length; ++korkeus) {
-            for (int leveys = 0; leveys < palikanTyyppi[korkeus].length; ++leveys) {
-               palikanTyyppi[korkeus][leveys] = 1; 
-            }
+        else if (tyyppi == 3) {//Z
+            tetrisPalikka[0] = new PalikanPala(5, 21);
+            tetrisPalikka[1] = new PalikanPala(6, 21);
+            tetrisPalikka[2] = new PalikanPala(6, 22);
+            tetrisPalikka[3] = new PalikanPala(7, 22);
+            
         }
-        * 
-        */
+        else if(tyyppi == 4) {//L
+            tetrisPalikka[0] = new PalikanPala(6, 21);
+            tetrisPalikka[1] = new PalikanPala(5, 21);
+            tetrisPalikka[2] = new PalikanPala(5, 22);
+            tetrisPalikka[3] = new PalikanPala(5, 23);
+            
+        }
+        else if(tyyppi == 5) {//O
+            tetrisPalikka[0] = new PalikanPala(6, 21);
+            tetrisPalikka[1] = new PalikanPala(5, 21);
+            tetrisPalikka[2] = new PalikanPala(5, 22);
+            tetrisPalikka[3] = new PalikanPala(6, 22);
+            
+        }
+
 
 
     }
 
-    public int[][] haePalikanTyyppi() {
-        return palikanTyyppi;
-    }
+    /**
+     * metodi siirtää tetrispalikkaa oikealle, vasemalle tai alas tietyssä
+     * ruudukossa. Kutsuu tetrispalikan neljän palan omia siirra metodeita.
+     *
+     * @param suunta siirron suunta (vasen, oikea, alas)
+     * @param ruudukko ruudukko, jossa palikkaa siirretään
+     * @return palauttaa true jos siirto mahdollinen, ja false jos ei voi
+     * siirtää
+     */
     public boolean siirra(char suunta, Ruudukko ruudukko) {
-        if (suunta == 'v' ) {
-            pala1.siirra('v', ruudukko);
-            pala2.siirra('v', ruudukko);
-            pala3.siirra('v', ruudukko);
-            pala4.siirra('v', ruudukko);
-            return true;
+        if (suunta == 'v') {
+            for (int i = 0; i < tetrisPalikka.length; i++) {
+                tetrisPalikka[i].siirra('v', ruudukko);
             }
-        else if (suunta == 'o') {
-            pala1.siirra('o', ruudukko);
-            pala2.siirra('o', ruudukko);
-            pala3.siirra('o', ruudukko);
-            pala4.siirra('o', ruudukko);
+
             return true;
-            
-        }
-        else if (suunta == 'a') {
-            pala1.siirra('a', ruudukko);
-            pala2.siirra('a', ruudukko);
-            pala3.siirra('a', ruudukko);
-            pala4.siirra('a', ruudukko);
+        } else if (suunta == 'o') {
+            for (int i = 0; i < tetrisPalikka.length; i++) {
+                tetrisPalikka[i].siirra('o', ruudukko);
+            }
+            return true;
+
+        } else if (suunta == 'a') {
+            for (int i = 0; i < tetrisPalikka.length; i++) {
+                tetrisPalikka[i].siirra('a', ruudukko);
+            }
             return true;
         }
         return false;
