@@ -27,7 +27,7 @@ public class PalikanPala {
  * Metodi palauttaa arvonaan x-koordinaatin arvon
  * @return x koordinaatti
  */
-    public int xkoordinaatti() {
+    public int getxkoordinaatti() {
         return x;
     }
  /**
@@ -35,8 +35,15 @@ public class PalikanPala {
  * @return y koordinaatti
  */
 
-    public int ykoordinaatti() {
+    public int getykoordinaatti() {
         return y;
+    }
+    public void setxkoordinaatti(int x){
+        this.x=x;
+        
+    }
+    public void setykoordinaatti(int y){
+        this.y=y;
     }
     /**
      * Metodi siirtää palaa haluttuun suuntaan tietyssä ruudukossa jos suunnassa oleva
@@ -48,34 +55,38 @@ public class PalikanPala {
      * @return 
      */
 
-    public boolean siirra(char suunta, Ruudukko ruudukko) {
+    public void siirra(char suunta) {
         if (suunta == 'v') {
-            if (ruudukko.ruutuTyhja(x - 1, y)) {
+            //if (ruudukko.ruutuTyhja(x - 1, y)) {
                 x--;
-                return true;
-            } else {
-                return false;
-            }
+             //   return true;
+            //} else {
+            //    return false;
+           // }
         } else if (suunta == 'o') {
-            if (ruudukko.ruutuTyhja(x + 1, y)) {
+           // if (ruudukko.ruutuTyhja(x + 1, y)) {
                 x++;
-                return true;
-            } else {
-                return false;
-            }
+           ////} else {
+           //     return false;
+           // }
 
         } else if (suunta == 'a') {
-            if (ruudukko.ruutuTyhja(x, y - 1)) {
+            //if (ruudukko.ruutuTyhja(x, y - 1)) {
                 y--;
-                return true;
-            } else {
-                return false;
-            }
+           //     return true;
+          //  } else {
+          //      return false;
+          //  }
 
 
-        } else {
+       /* } else {
             return false;
         }
+        * 
+        */
+         
+       
+    }
     }
 /**
  * Toistaiseksi turha metodi, koska siirrettäessä jo tarkistetaan että siirretään vain 

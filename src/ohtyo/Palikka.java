@@ -74,25 +74,28 @@ public class Palikka {
      * @return palauttaa true jos siirto mahdollinen, ja false jos ei voi
      * siirtää
      */
-    public boolean siirra(char suunta, Ruudukko ruudukko) {
+    public boolean siirra(char suunta) {
         if (suunta == 'v') {
             for (int i = 0; i < tetrisPalikka.length; i++) {
-                tetrisPalikka[i].siirra('v', ruudukko);
+                tetrisPalikka[i].siirra('v');
             }
 
             return true;
         } else if (suunta == 'o') {
             for (int i = 0; i < tetrisPalikka.length; i++) {
-                tetrisPalikka[i].siirra('o', ruudukko);
+                tetrisPalikka[i].siirra('o');
             }
             return true;
 
         } else if (suunta == 'a') {
             for (int i = 0; i < tetrisPalikka.length; i++) {
-                tetrisPalikka[i].siirra('a', ruudukko);
+                tetrisPalikka[i].siirra('a');
             }
             return true;
         }
         return false;
+    }
+    public PalikanPala[] getPalat(){
+     return tetrisPalikka;   
     }
 }
