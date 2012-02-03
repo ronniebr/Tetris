@@ -47,7 +47,7 @@ public class PalikkaTest {
       ruudukko.uusiPalikka();
  
       
-      assertTrue("", ruudukko.kahvaAktiiviseenPalikkaan().siirra('a', ruudukko));
+      assertTrue("", ruudukko.kahvaAktiiviseenPalikkaan().siirra('a'));
       
   }
 
