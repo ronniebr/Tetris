@@ -41,8 +41,8 @@ public class RuudukkoTest {
     //
   @Test
   public void konstruktoriLuoHalutunRuudukon() {
-      Ruudukko ruudukko = new Ruudukko(10,10);
-      assertEquals(10, ruudukko.ruudukonKoko());
+      Ruudukko ruudukko = new Ruudukko();
+      assertEquals(13, ruudukko.ruudukonKoko());
           
    
                  

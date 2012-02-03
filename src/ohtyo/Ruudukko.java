@@ -17,11 +17,21 @@ public class Ruudukko {
     private Palikka palikka;
 
     /**
-     * Luo oletuskokoisen ruudukon 11*24
+     * Luo oletuskokoisen ruudukon 11*24 ja asettaa ruudukon "reunojen" arvoksi 9
      */
     public Ruudukko() {
 
-        ruudukonMatriisi = new int[11][24];
+        ruudukonMatriisi = new int[13][24];
+        for (int i = 0; i < ruudukonMatriisi.length; i++) {
+
+
+            ruudukonMatriisi[i][0] = 9;
+
+        }
+        for (int i = 0; i < 24; i++) {
+            ruudukonMatriisi[12][i] = 9;
+            ruudukonMatriisi[0][i] = 9;
+        }
 
     }
 
@@ -53,7 +63,7 @@ public class Ruudukko {
      *
      * @param x koordinaatti
      * @param y kooordinaatti
-     * @return tre/false
+     * @return true/false
      */
     public boolean ruutuTyhja(int x, int y) {
         if (ruudukonMatriisi[x][y] == 0) {
@@ -63,7 +73,20 @@ public class Ruudukko {
         }
     }
 
-    public boolean siirraPalikka(char suunta, Palikka palikka) {
+    /**
+     * Tarkistaa ensin, että kaikkia palikan paloja voi siirtää haluttuun
+     * suuntaan, jos ei niin palauttaa false Jos voidaan siirtää, niin
+     * siirretään kutsumalla palikan omaa siirtometodia. Siirron jälkeen
+     * tarkistetaan vielä jos palikkaa voi siirtää uudestaan johonkin suuntaan.
+     * Jos siirron jälkeen ei enää voida siirtää niin pistetään palikan paikka
+     * muistiin ja luodaan uusi palikka ruudukkoon. Siirtää palikkaa ruudukossa
+     * haluttuun suuntaan
+     *
+     * @param suunta vasen, oikea, alas
+     * @param palikka aktiivinen palikka
+     * @return true jos siirto onnistui, false jos ei voi siirtää
+     */
+    public boolean siirraPalikka(char suunta) {
         if (suunta == 'v') {
             for (int i = 0; i < palikka.getPalat().length; i++) {
                 if (ruutuTyhja(palikka.getPalat()[i].getxkoordinaatti() - 1,
@@ -72,35 +95,83 @@ public class Ruudukko {
                 }
             }
             palikka.siirra(suunta);
+            if (voikoSiirtaaPalikkaa() == false) {
+                for (int i = 0; i < palikka.getPalat().length; i++) {
+                    ruudukonMatriisi[palikka.getPalat()[i].getxkoordinaatti()][
+                        palikka.getPalat()[i].getykoordinaatti()] = 1;
+                }
+                uusiPalikka();
+            }
+
             return true;
 
 
         } else if (suunta == 'o') {
             for (int i = 0; i < palikka.getPalat().length; i++) {
-                if (ruutuTyhja(palikka.getPalat()[1].getxkoordinaatti() + 1,
-                        palikka.getPalat()[1].getykoordinaatti()) == false) {
+                if (ruutuTyhja(palikka.getPalat()[i].getxkoordinaatti() + 1,
+                        palikka.getPalat()[i].getykoordinaatti()) == false) {
 
                     return false;
                 }
             }
             palikka.siirra(suunta);
+            if (voikoSiirtaaPalikkaa() == false) {
+                for (int i = 0; i < palikka.getPalat().length; i++) {
+                    ruudukonMatriisi[palikka.getPalat()[i].getxkoordinaatti()][
+                        palikka.getPalat()[i].getykoordinaatti()] = 1;
+                }
+                uusiPalikka();
+            }
+
             return true;
 
         } else if (suunta == 'a') {
             for (int i = 0; i < palikka.getPalat().length; i++) {
-                if (ruutuTyhja(palikka.getPalat()[1].getxkoordinaatti(),
-                        palikka.getPalat()[1].getykoordinaatti() - 1) == false) {
+                if (ruutuTyhja(palikka.getPalat()[i].getxkoordinaatti(),
+                        palikka.getPalat()[i].getykoordinaatti() - 1) == false) {
                     return false;
                 }
 
             }
             palikka.siirra(suunta);
+            if (voikoSiirtaaPalikkaa() == false) {
+                for (int i = 0; i < palikka.getPalat().length; i++) {
+                    ruudukonMatriisi[palikka.getPalat()[i].getxkoordinaatti()][
+                        palikka.getPalat()[i].getykoordinaatti()] = 1;
+                }
+                uusiPalikka();
+            }
+
+
             return true;
 
 
         } else {
             return false;
         }
+    }
+
+    /**
+     * Tarkistetaan voiko palikkaa siirtää mihinkään suuntaan.
+     *
+     * @param palikka aktiivinen palikka
+     * @return true jos palikkaa voi siirtää johonkin, false jos ei voi
+     */
+    public boolean voikoSiirtaaPalikkaa() {
+        for (int i = 0; i < palikka.getPalat().length; i++) {
+            if (ruutuTyhja(palikka.getPalat()[1].getxkoordinaatti(),
+                    palikka.getPalat()[i].getykoordinaatti() - 1) == false
+                    /*&& ruutuTyhja(palikka.getPalat()[i].getxkoordinaatti() + 1,
+                    palikka.getPalat()[i].getykoordinaatti()) == false
+                    && ruutuTyhja(palikka.getPalat()[i].getxkoordinaatti() - 1,
+                    palikka.getPalat()[i].getykoordinaatti()) == false
+                    */ ) {
+                return false;
+            }
+        }
+
+        return true;
+
     }
 
     /**
@@ -112,7 +183,27 @@ public class Ruudukko {
         return palikka;
     }
 
+    /**
+     * Poistaa rivin ruudukosta, eli muuttaa rivin arvot matriisissa nolliksi
+     *
+     * @param y poistettavan rivin y-axelin koordinaatti
+     */
+    public void poistaRivi(int y) {
+        for (int i = 0; i < ruudukonMatriisi.length; i++) {
+            ruudukonMatriisi[i][y] = 0;
+        }
+
+    }
+
+    /**
+     * Palauttaa arvonaan ruudukon matriisin pituuden
+     *
+     * @return matriisin pituus
+     */
     public int ruudukonKoko() {
         return ruudukonMatriisi.length;
+    }
+    public int[][] getRuudukonMatriisi(){
+        return ruudukonMatriisi;
     }
 }

@@ -42,12 +42,23 @@ public class PalikkaTest {
     // The methods must be annotated with annotation @Test. For example:
     //
   @Test
-  public void palikkaRuudukkoon() {
+  public void palikkaSiirto() {
       Ruudukko ruudukko = new Ruudukko();
       ruudukko.uusiPalikka();
+      System.out.println("x: " +ruudukko.kahvaAktiiviseenPalikkaan().getPalat()[0].getxkoordinaatti() + 
+                  " y: " + ruudukko.kahvaAktiiviseenPalikkaan().getPalat()[0].getykoordinaatti());
+      for (int rivi=0; rivi<ruudukko.getRuudukonMatriisi().length; ++rivi)
+      for (int sarake=0; sarake<ruudukko.getRuudukonMatriisi()[rivi].length; ++sarake)
+          System.out.println();
  
+      for(int i = 0; i < 1000; i++){
+          ruudukko.siirraPalikka('a');
+          System.out.println("x: " +ruudukko.kahvaAktiiviseenPalikkaan().getPalat()[0].getxkoordinaatti() + 
+                  " ,y: " + ruudukko.kahvaAktiiviseenPalikkaan().getPalat()[0].getykoordinaatti());
+          
+      }
       
-      assertTrue("", ruudukko.kahvaAktiiviseenPalikkaan().siirra('a'));
+      assertFalse("", ruudukko.siirraPalikka('a'));
       
   }
 

@@ -66,35 +66,38 @@ public class Palikka {
     }
 
     /**
-     * metodi siirtää tetrispalikkaa oikealle, vasemalle tai alas tietyssä
-     * ruudukossa. Kutsuu tetrispalikan neljän palan omia siirra metodeita.
+     * metodi siirtää tetrispalikkaa oikealle, vasemalle tai alas . 
+     * Kutsuu tetrispalikan neljän palan omia siirra metodeita.
      *
      * @param suunta siirron suunta (vasen, oikea, alas)
-     * @param ruudukko ruudukko, jossa palikkaa siirretään
-     * @return palauttaa true jos siirto mahdollinen, ja false jos ei voi
-     * siirtää
+     
+     
      */
-    public boolean siirra(char suunta) {
+    public void siirra(char suunta) {
         if (suunta == 'v') {
             for (int i = 0; i < tetrisPalikka.length; i++) {
                 tetrisPalikka[i].siirra('v');
             }
 
-            return true;
+            
         } else if (suunta == 'o') {
             for (int i = 0; i < tetrisPalikka.length; i++) {
                 tetrisPalikka[i].siirra('o');
             }
-            return true;
+            
 
         } else if (suunta == 'a') {
             for (int i = 0; i < tetrisPalikka.length; i++) {
                 tetrisPalikka[i].siirra('a');
             }
-            return true;
+            
         }
-        return false;
+        
     }
+  /**
+   * Palauttaa arvonaan taulukollisen palikan paloja
+   * @return palikan palat
+   */
     public PalikanPala[] getPalat(){
      return tetrisPalikka;   
     }
