@@ -47,16 +47,35 @@ public class PalikkaTest {
       ruudukko.uusiPalikka();
       System.out.println("x: " +ruudukko.kahvaAktiiviseenPalikkaan().getPalat()[0].getxkoordinaatti() + 
                   " y: " + ruudukko.kahvaAktiiviseenPalikkaan().getPalat()[0].getykoordinaatti());
-      for (int rivi=0; rivi<ruudukko.getRuudukonMatriisi().length; ++rivi)
-      for (int sarake=0; sarake<ruudukko.getRuudukonMatriisi()[rivi].length; ++sarake)
-          System.out.println();
+
  
-      for(int i = 0; i < 1000; i++){
+      for(int k = 0; k < 200; k++){
+          System.out.println();
           ruudukko.siirraPalikka('a');
-          System.out.println("x: " +ruudukko.kahvaAktiiviseenPalikkaan().getPalat()[0].getxkoordinaatti() + 
+           System.out.println("x: " +ruudukko.kahvaAktiiviseenPalikkaan().getPalat()[0].getxkoordinaatti() + 
                   " ,y: " + ruudukko.kahvaAktiiviseenPalikkaan().getPalat()[0].getykoordinaatti());
+          for(int i=0; i< ruudukko.ruudukonKoko(); i++){
+          for(int j= 0; j < ruudukko.getRuudukonMatriisi()[i].length; j++){
+          System.out.print(ruudukko.getRuudukonMatriisi()[i][j]);
+          }
+          System.out.println();
           
       }
+      
+          
+         
+                  
+          
+          
+      }
+      for(int i=0; i< ruudukko.ruudukonKoko(); i++){
+          for(int j= 0; j < ruudukko.getRuudukonMatriisi()[i].length; j++){
+          System.out.print(ruudukko.getRuudukonMatriisi()[i][j]);
+          }
+          System.out.println();
+          
+      }
+      
       
       assertFalse("", ruudukko.siirraPalikka('a'));
       

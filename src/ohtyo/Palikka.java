@@ -23,7 +23,7 @@ public class Palikka {
      *
      * @param tyyppi Haluttu tetrispalikan tyyppi, esim I;Z;L;J;O
      */
-    public Palikka(int tyyppi) { //tässä vaiheessa kokeilussa **** muotoinen palikka
+    public Palikka(int tyyppi) { 
         if (tyyppi == 1) {//I
 
 
@@ -31,6 +31,7 @@ public class Palikka {
             tetrisPalikka[1] = new PalikanPala(5, 22);
             tetrisPalikka[2] = new PalikanPala(5, 23);
             tetrisPalikka[3] = new PalikanPala(5, 24);
+
         }
         else if (tyyppi == 2){//J
             tetrisPalikka[0] = new PalikanPala(5, 21);
@@ -60,6 +61,7 @@ public class Palikka {
             tetrisPalikka[3] = new PalikanPala(6, 22);
             
         }
+        
 
 
 
