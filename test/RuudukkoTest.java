@@ -42,7 +42,7 @@ public class RuudukkoTest {
   @Test
   public void konstruktoriLuoHalutunRuudukon() {
       Ruudukko ruudukko = new Ruudukko();
-      assertEquals(13, ruudukko.ruudukonKoko());
+      assertEquals(13, ruudukko.getRuudukonKoko());
           
    
                  

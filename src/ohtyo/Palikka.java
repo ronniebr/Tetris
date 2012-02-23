@@ -10,12 +10,13 @@ package ohtyo;
  */
 public class Palikka {
     /*
-     * Palikka koostuu neljästä ruudusta
+     * Palikka koostuu neljästä ruudusta (PalikanPala)
      *
      */
 
 
     private PalikanPala[] tetrisPalikka = new PalikanPala[4];
+    private int tyyppi;
 
     /**
      * Konstruktori luo tietyn tyyppisen tetrispalikan. Tetrispalikka koostuu
@@ -31,6 +32,7 @@ public class Palikka {
             tetrisPalikka[1] = new PalikanPala(5, 22);
             tetrisPalikka[2] = new PalikanPala(5, 23);
             tetrisPalikka[3] = new PalikanPala(5, 24);
+            this.tyyppi = tyyppi;
 
         }
         else if (tyyppi == 2){//J
@@ -38,6 +40,7 @@ public class Palikka {
             tetrisPalikka[1] = new PalikanPala(6, 21);
             tetrisPalikka[2] = new PalikanPala(6, 22);
             tetrisPalikka[3] = new PalikanPala(6, 23);
+            this.tyyppi = tyyppi;
             
         }
         else if (tyyppi == 3) {//Z
@@ -45,6 +48,7 @@ public class Palikka {
             tetrisPalikka[1] = new PalikanPala(6, 21);
             tetrisPalikka[2] = new PalikanPala(6, 22);
             tetrisPalikka[3] = new PalikanPala(7, 22);
+            this.tyyppi = tyyppi;
             
         }
         else if(tyyppi == 4) {//L
@@ -52,6 +56,7 @@ public class Palikka {
             tetrisPalikka[1] = new PalikanPala(5, 21);
             tetrisPalikka[2] = new PalikanPala(5, 22);
             tetrisPalikka[3] = new PalikanPala(5, 23);
+            this.tyyppi = tyyppi;
             
         }
         else if(tyyppi == 5) {//O
@@ -59,6 +64,7 @@ public class Palikka {
             tetrisPalikka[1] = new PalikanPala(5, 21);
             tetrisPalikka[2] = new PalikanPala(5, 22);
             tetrisPalikka[3] = new PalikanPala(6, 22);
+            this.tyyppi = tyyppi;
             
         }
         
@@ -96,11 +102,11 @@ public class Palikka {
         }
         
     }
-  /**
-   * Palauttaa arvonaan taulukollisen palikan paloja
-   * @return palikan palat
-   */
+
     public PalikanPala[] getPalat(){
      return tetrisPalikka;   
+    }
+    public int getTyyppi() {
+        return tyyppi;
     }
 }

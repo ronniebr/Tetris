@@ -54,7 +54,7 @@ public class PalikkaTest {
           ruudukko.siirraPalikka('a');
            System.out.println("x: " +ruudukko.kahvaAktiiviseenPalikkaan().getPalat()[0].getxkoordinaatti() + 
                   " ,y: " + ruudukko.kahvaAktiiviseenPalikkaan().getPalat()[0].getykoordinaatti());
-          for(int i=0; i< ruudukko.ruudukonKoko(); i++){
+          for(int i=0; i< ruudukko.getRuudukonKoko(); i++){
           for(int j= 0; j < ruudukko.getRuudukonMatriisi()[i].length; j++){
           System.out.print(ruudukko.getRuudukonMatriisi()[i][j]);
           }
@@ -68,7 +68,7 @@ public class PalikkaTest {
           
           
       }
-      for(int i=0; i< ruudukko.ruudukonKoko(); i++){
+      for(int i=0; i< ruudukko.getRuudukonKoko(); i++){
           for(int j= 0; j < ruudukko.getRuudukonMatriisi()[i].length; j++){
           System.out.print(ruudukko.getRuudukonMatriisi()[i][j]);
           }

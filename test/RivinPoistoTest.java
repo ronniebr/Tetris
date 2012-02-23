@@ -51,7 +51,7 @@ public class RivinPoistoTest {
             
             ruudukko.siirraPalikka('a');
             
-            for (int i = 0; i < ruudukko.ruudukonKoko(); i++) {
+            for (int i = 0; i < ruudukko.getRuudukonKoko(); i++) {
                 for (int j = 0; j < ruudukko.getRuudukonMatriisi()[i].length; j++) {
                     System.out.print(ruudukko.getRuudukonMatriisi()[i][j]);
                 }
@@ -65,7 +65,7 @@ public class RivinPoistoTest {
 
 
         }
-        for (int i = 0; i < ruudukko.ruudukonKoko(); i++) {
+        for (int i = 0; i < ruudukko.getRuudukonKoko(); i++) {
             for (int j = 0; j < ruudukko.getRuudukonMatriisi()[i].length; j++) {
                 System.out.print(ruudukko.getRuudukonMatriisi()[i][j]);
             }

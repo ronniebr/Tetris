@@ -15,14 +15,16 @@ public class Ruudukko {
     private int korkeus, leveys;
     private int[][] ruudukonMatriisi;
     private Palikka palikka;
+    private int pisteet = 0;
+    private boolean peliLoppu = false;
 
     /**
-     * Luo oletuskokoisen ruudukon 11*24 ja asettaa ruudukon "reunojen" arvoksi
+     * Luo oletuskokoisen ruudukon 12*25 ja asettaa ruudukon "reunojen" arvoksi
      * 9
      */
     public Ruudukko() {
 
-        ruudukonMatriisi = new int[13][25];
+        ruudukonMatriisi = new int[12][25];
         for (int i = 0; i < ruudukonMatriisi.length; i++) {
 
 
@@ -30,50 +32,36 @@ public class Ruudukko {
 
         }
         for (int i = 0; i < 25; i++) {
-            ruudukonMatriisi[12][i] = 9;
+            ruudukonMatriisi[11][i] = 9;
             ruudukonMatriisi[0][i] = 9;
         }
 
     }
 
     /**
-     * Luo halutun kokoisen ruudukon
-     *
-     * @param korkeus ruudukon korkeus
-     * @param leveys ruudukon leveys
-     */
-    public Ruudukko(int korkeus, int leveys) {
-        ruudukonMatriisi = new int[leveys][korkeus];
-
-
-    }
-
-    /**
-     * Luo uuden satunnaisen tyyppisen tetrispalikan ruudukkoon
-     *
+     * Luo uuden satunnaisen tyyppisen tetrispalikan ruudukkoon ja asettaa
+     * ruudukon arvoksi 2, palikan nykyiselle sijainnille.
      */
     public void uusiPalikka() {
         int tyyppi = (int) (5 * Math.random()) + 1;
 
         palikka = new Palikka(tyyppi);
 
-
-        /*
-         * palikka = new Palikka(5);
-         *
-         */
+        paivitaRuudukonArvoja(2);
 
     }
 
     /**
      * Tarkistaa, että tietty ruutu ruudukossa on tyhjä ja palauttaa totuusarvon
+     * Ruutu on tyhjä jos se on arvoltaan 0 tai 2 (2 esittää palikan nykyistä
+     * sijaintia)
      *
      * @param x koordinaatti
      * @param y kooordinaatti
      * @return true/false
      */
     public boolean ruutuTyhja(int x, int y) {
-        if (ruudukonMatriisi[x][y] == 0) {
+        if (ruudukonMatriisi[x][y] == 0 || ruudukonMatriisi[x][y] == 2) {
             return true;
         } else {
             return false;
@@ -82,14 +70,18 @@ public class Ruudukko {
 
     /**
      * Tarkistaa ensin, että kaikkia palikan paloja voi siirtää haluttuun
-     * suuntaan, jos ei niin palauttaa false Jos voidaan siirtää, niin
-     * siirretään kutsumalla palikan omaa siirtometodia. Siirron jälkeen
-     * tarkistetaan vielä jos palikkaa voi siirtää uudestaan johonkin suuntaan.
-     * Jos siirron jälkeen ei enää voida siirtää niin pistetään palikan paikka
-     * muistiin ja luodaan uusi palikka ruudukkoon. Siirtää palikkaa ruudukossa
-     * haluttuun suuntaan
+     * suuntaan. Jos voidaan siirtää, niin siirretään kutsumalla palikan omaa
+     * siirtometodia. Ennen ja jälkeen siirron, muistetaan myös päivittää
+     * palikan nykyistä sijaintia ruudukossa. Siirron jälkeen tarkistetaan vielä
+     * jos palikkaa voi siirtää alaspäin. Jos siirron jälkeen ei enää voida
+     * siirtää alaspäin, niin pistetään palikan paikka muistiin, ja luodaan uusi
+     * palikka ruudukkoon. Pysähtyneet palikat merkitään ruudukossa arvolla 1
      *
-     * @param suunta vasen, oikea, alas
+     * Alaspäin suunnatun siirron jälkeen tarkistetaan myös, jos siirto on täyttänyt
+     * jonkun rivin. Täydet rivit poistetaan. Tämän lisäksi tarkistetaan myös jos
+     * palikka on maximikorkeudessa 21. Jos on, niin  ei enää luoda uusia palikoita ja 
+     * peli päättyy.
+     * @param suunta vasen, oikea, alas. 
      * @param palikka aktiivinen palikka
      * @return true jos siirto onnistui, false jos ei voi siirtää
      */
@@ -101,12 +93,11 @@ public class Ruudukko {
                     return false;
                 }
             }
+            paivitaRuudukonArvoja(0);
             palikka.siirra(suunta);
+            paivitaRuudukonArvoja(2);
             if (voikoVielaSiirtaaPalikkaa() == false) {
-                for (int i = 0; i < palikka.getPalat().length; i++) {
-                    ruudukonMatriisi[palikka.getPalat()[i].getxkoordinaatti()][
-                        palikka.getPalat()[i].getykoordinaatti()] = 1;
-                }
+                paivitaRuudukonArvoja(1);
                 uusiPalikka();
             }
 
@@ -121,12 +112,12 @@ public class Ruudukko {
                     return false;
                 }
             }
+            paivitaRuudukonArvoja(0);
             palikka.siirra(suunta);
+            paivitaRuudukonArvoja(2);
+
             if (voikoVielaSiirtaaPalikkaa() == false) {
-                for (int i = 0; i < palikka.getPalat().length; i++) {
-                    ruudukonMatriisi[palikka.getPalat()[i].getxkoordinaatti()][
-                        palikka.getPalat()[i].getykoordinaatti()] = 1;
-                }
+                paivitaRuudukonArvoja(1);
                 uusiPalikka();
             }
 
@@ -140,23 +131,20 @@ public class Ruudukko {
                 }
 
             }
+            paivitaRuudukonArvoja(0);
             palikka.siirra(suunta);
+            paivitaRuudukonArvoja(2);
+
             if (voikoVielaSiirtaaPalikkaa() == false) {
-
-
+                paivitaRuudukonArvoja(1);
                 for (int i = 0; i < palikka.getPalat().length; i++) {
-                    ruudukonMatriisi[palikka.getPalat()[i].getxkoordinaatti()][
-                        palikka.getPalat()[i].getykoordinaatti()] = 1;
-                    if (onkoRiviTaysi(palikka.getPalat()[i].getykoordinaatti())){
-                       poistaRivi(palikka.getPalat()[i].getykoordinaatti()); 
+                    if (onkoRiviTaysi(palikka.getPalat()[i].getykoordinaatti())) {
+                        poistaRivi(palikka.getPalat()[i].getykoordinaatti());
                     }
-                 
-                        
-                    
                 }
 
                 if (palikkaRajalla()) {
-                    System.out.println("Game over!");
+                    peliLoppu = true;
                     return true;
                 }
                 uusiPalikka();
@@ -170,7 +158,49 @@ public class Ruudukko {
             return false;
         }
     }
+    /**
+     * Kääntää palikkaa 90 astetta oikealle. Kääntöoperaatiot eroavat toisistaan
+     * palikan tyypin perusteella, esim. neliölle ei tarvitse tehdä mitään.
+     * Muuten metodi toimii tällä hetkellä vain L-tyyppiselle palikalle. 
+     */
 
+    public void kaannaPalikkaa() {
+        if (palikka.getTyyppi() == 5) {
+            return;
+        }
+        if (palikka.getTyyppi() == 4) {
+            if (palikka.getPalat()[1].getxkoordinaatti() < palikka.getPalat()[0].getxkoordinaatti()) {
+                if (ruutuTyhja(palikka.getPalat()[0].getxkoordinaatti() - 1,
+                        palikka.getPalat()[0].getykoordinaatti() - 1) == false
+                        || ruutuTyhja(palikka.getPalat()[2].getxkoordinaatti() + 1,
+                        palikka.getPalat()[2].getykoordinaatti() + 2) == false
+                        || ruutuTyhja(palikka.getPalat()[3].getxkoordinaatti() - 1,
+                        palikka.getPalat()[3].getykoordinaatti() - 2) == false) {
+                    return;
+                }
+
+                paivitaRuudukonArvoja(0);
+                palikka.getPalat()[0].setxkoordinaatti(palikka.getPalat()[0].getxkoordinaatti() - 1);
+                palikka.getPalat()[0].setykoordinaatti(palikka.getPalat()[0].getykoordinaatti() - 1);
+
+                palikka.getPalat()[2].setxkoordinaatti(palikka.getPalat()[2].getxkoordinaatti() + 1);
+                palikka.getPalat()[2].setykoordinaatti(palikka.getPalat()[2].getykoordinaatti() - 1);
+
+                palikka.getPalat()[3].setxkoordinaatti(palikka.getPalat()[3].getxkoordinaatti() + 2);
+                palikka.getPalat()[3].setykoordinaatti(palikka.getPalat()[3].getykoordinaatti() - 2);
+                paivitaRuudukonArvoja(2);
+            }
+        }
+
+
+
+    }
+/**
+ * Tarkistaa onko palikka maximikorkeudessa, eli rajalla. Jos on, niin palauttaa 
+ * totuusarvon true, jos ei niin false.
+ * @return true tai false
+ */
+    
     public boolean palikkaRajalla() {
         for (int i = 0; i < ruudukonMatriisi.length; i++) {
             if (ruudukonMatriisi[i][20] == 1) {
@@ -182,20 +212,15 @@ public class Ruudukko {
     }
 
     /**
-     * Tarkistetaan voiko palikkaa siirtää mihinkään suuntaan.
+     * Tarkistetaan voiko palikkaa siirtää alaspäin .
      *
-     * @param palikka aktiivinen palikka
-     * @return true jos palikkaa voi siirtää johonkin, false jos ei voi
+     * 
+     * @return true jos palikkaa voi siirtää alaspäin, false jos ei voi
      */
     public boolean voikoVielaSiirtaaPalikkaa() {
         for (int i = 0; i < palikka.getPalat().length; i++) {
             if (ruutuTyhja(palikka.getPalat()[i].getxkoordinaatti(),
-                    palikka.getPalat()[i].getykoordinaatti() - 1) == false /*
-                     * && ruutuTyhja(palikka.getPalat()[i].getxkoordinaatti() +
-                     * 1, palikka.getPalat()[i].getykoordinaatti()) == false &&
-                     * ruutuTyhja(palikka.getPalat()[i].getxkoordinaatti() - 1,
-                     * palikka.getPalat()[i].getykoordinaatti()) == false
-                     */) {
+                    palikka.getPalat()[i].getykoordinaatti() - 1) == false ) {
                 return false;
             }
         }
@@ -220,7 +245,7 @@ public class Ruudukko {
      */
     public void poistaRivi(int y) {
 
-        int[][] apuMatriisi = new int[13][25];
+        int[][] apuMatriisi = new int[12][25];
 
         for (int i = 1; i < ruudukonMatriisi.length - 1; i++) {
             for (int j = 1; j < ruudukonMatriisi[i].length - 1; j++) {
@@ -230,13 +255,29 @@ public class Ruudukko {
 
 
         }
+        for (int i = 0; i < apuMatriisi.length; i++) {
+
+
+            apuMatriisi[i][0] = 9;
+
+        }
+        for (int i = 0; i < 25; i++) {
+            apuMatriisi[11][i] = 9;
+            apuMatriisi[0][i] = 9;
+        }
+
         ruudukonMatriisi = apuMatriisi;
+        pisteet++;
 
 
     }
-
+/**
+ * Tarkistaa jos annettu rivi on täysi
+ * @param y tarkistettavan rivin y-koordinaatti
+ * @return true tai false
+ */
     public boolean onkoRiviTaysi(int y) {
-        for (int i = 1; i < ruudukonMatriisi.length-1; i++) {
+        for (int i = 1; i < ruudukonMatriisi.length - 1; i++) {
             if (ruudukonMatriisi[i][y] != 1) {
                 return false;
             }
@@ -244,17 +285,40 @@ public class Ruudukko {
         }
         return true;
     }
-
     /**
-     * Palauttaa arvonaan ruudukon matriisin pituuden
-     *
-     * @return matriisin pituus
+     * Päivittää ruudukon matriisin arvoja, aktiivisen palikan koordinaattien 
+     * perusteella.
+     * @param arvo joksi palikan sijainti ruudukossa muutetaan (0 = tyhjä, 
+     * 1=pysähtynyt palikka, 2 = aktiivinen palikka)
+     * 
      */
-    public int ruudukonKoko() {
+
+    public void paivitaRuudukonArvoja(int arvo) {
+        for (int i = 0; i < palikka.getPalat().length; i++) {
+            ruudukonMatriisi[palikka.getPalat()[i].getxkoordinaatti()][
+                        palikka.getPalat()[i].getykoordinaatti()] = arvo;
+
+        }
+    }
+
+
+    public int getRuudukonKoko() {
         return ruudukonMatriisi.length;
     }
 
     public int[][] getRuudukonMatriisi() {
         return ruudukonMatriisi;
+    }
+
+    public int getPisteet() {
+        return pisteet;
+    }
+
+    public boolean onkoPeliLoppu() {
+        if (peliLoppu) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
