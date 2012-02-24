@@ -63,8 +63,7 @@ public class Demo {
     }
 
     private static void tulostaTilanne(Ruudukko ruudukko) {
-        System.out.println("x: " + ruudukko.kahvaAktiiviseenPalikkaan().getPalat()[0].getxkoordinaatti()
-                + " ,y: " + ruudukko.kahvaAktiiviseenPalikkaan().getPalat()[0].getykoordinaatti()+", pisteet: " + ruudukko.getPisteet());
+        System.out.println("pisteet: " + ruudukko.getPisteet());
         for (int i = 0; i < ruudukko.getRuudukonKoko(); i++) {
             for (int j = 0; j < ruudukko.getRuudukonMatriisi()[i].length; j++) {
                 System.out.print(ruudukko.getRuudukonMatriisi()[i][j]);

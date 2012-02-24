@@ -3,10 +3,11 @@
  * and open the template in the editor.
  */
 package GUI;
-import java.awt.BorderLayout;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import java.awt.*;
+
 import javax.swing.*;
+
+
 import ohtyo.*;
 
 /**
@@ -17,19 +18,22 @@ public class Tetrisikkuna extends JFrame {
     JLabel statusbar;
     Timer timer;
     
-    Ruudukko ruudukko = new Ruudukko();
-    
-    public Tetrisikkuna() {
-        statusbar = new JLabel("0");
-        add(statusbar, BorderLayout.SOUTH);
-        setFocusable(true);
-        ruudukko.uusiPalikka();
-        
-        
-        
-        
+// luodaan ikkuna
+   public static void main(String[] args) {
+JFrame dlg = new JFrame();
 
-        
-    }
-    
+
+// luodaan piirturi
+Piirturi piirturi = new Piirturi();
+
+// otetaan viite ikkunan containeriin ja asetetaan piirturi siihen
+Container container = dlg.getContentPane();
+
+container.add(piirturi);
+
+// ikkunan koko, sulkemistoiminnallisuus ja näkyväksi asetus
+dlg.setSize(360, 750);
+dlg.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+dlg.setVisible(true);
+}
 }
