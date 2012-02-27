@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ohtyo;
+package tetrisLogiikka;
 
 import java.util.Scanner;
 

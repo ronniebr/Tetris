@@ -8,32 +8,39 @@ import java.awt.*;
 import javax.swing.*;
 
 
-import ohtyo.*;
 
 /**
  *
  * @author ronniebr
  */
-public class Tetrisikkuna extends JFrame {
-    JLabel statusbar;
-    Timer timer;
+public class Tetrisikkuna  {
+    
+    
     
 // luodaan ikkuna
    public static void main(String[] args) {
-JFrame dlg = new JFrame();
+JFrame ikkuna = new JFrame();
+Peli peli = new Peli();
+
+ikkuna.setSize(440, 750);
+ikkuna.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+ikkuna.setVisible(true);
+ikkuna.addKeyListener(peli);
+
+peli.setBackground(Color.black);
+Container sisalto = ikkuna.getContentPane();
+sisalto.add(peli);
 
 
-// luodaan piirturi
-Piirturi piirturi = new Piirturi();
 
-// otetaan viite ikkunan containeriin ja asetetaan piirturi siihen
-Container container = dlg.getContentPane();
 
-container.add(piirturi);
 
-// ikkunan koko, sulkemistoiminnallisuus ja näkyväksi asetus
-dlg.setSize(360, 750);
-dlg.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-dlg.setVisible(true);
+
+
+
+
+
+
+
 }
 }

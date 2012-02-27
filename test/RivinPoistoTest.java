@@ -1,9 +1,9 @@
 
-import ohtyo.Ruudukko;
+import tetrisLogiikka.Ruudukko;
 import org.junit.*;
-import ohtyo.Ruudukko;
-import ohtyo.Palikka;
-import ohtyo.PalikanPala;
+import tetrisLogiikka.Ruudukko;
+import tetrisLogiikka.Palikka;
+import tetrisLogiikka.PalikanPala;
 
 import org.junit.After;
 import org.junit.AfterClass;

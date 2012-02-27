@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-import ohtyo.Ruudukko;
+import tetrisLogiikka.Ruudukko;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,7 +42,7 @@ public class RuudukkoTest {
   @Test
   public void konstruktoriLuoHalutunRuudukon() {
       Ruudukko ruudukko = new Ruudukko();
-      assertEquals(13, ruudukko.getRuudukonKoko());
+      assertEquals(12, ruudukko.getRuudukonKoko());
           
    
                  
